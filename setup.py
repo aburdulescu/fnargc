@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name="fnargc",
-    version="dev",
+    version="0.1.0",
     description="Count C/C++ functions and their args.",
     packages=["fnargc"],
     install_requires=[
