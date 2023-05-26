@@ -1,3 +1,5 @@
 /venv/
 /*.csv
 /repos/
+/*.egg-info/
+__pycache__/
