@@ -13,6 +13,7 @@ setup(
     entry_points={
         "console_scripts": [
             "fnargc=fnargc.fnargc:main",
+            "fnargc-stats=fnargc.stats:main",
         ]
     },
 )
