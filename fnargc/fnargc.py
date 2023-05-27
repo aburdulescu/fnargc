@@ -180,7 +180,7 @@ def main():
 
     srcs = []
     for s in args.src_dir:
-        srcs.append(os.path.join(args.root_dir, s))
+        srcs.append(os.path.normpath(os.path.join(args.root_dir, s)))
     args.src_dir = srcs
 
     try:
