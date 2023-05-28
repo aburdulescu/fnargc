@@ -199,17 +199,17 @@ def main():
 
     funcs = []
 
+    len_last_file = 0
+
     for i in range(len(compile_commands)):
         v = compile_commands[i]
 
-        print(
-            "[%d/%d] %s ... "
-            % (
-                i + 1,
-                len(compile_commands),
-                v.filename.removeprefix(args.root_dir),
-            ),
-        )
+        rel_file_path = v.filename.removeprefix(args.root_dir)
+        extra = ""
+        if len(rel_file_path) < len_last_file:
+            extra = " " * (len_last_file - len(rel_file_path))
+        print(f"[{i+1}/{len(compile_commands)}] {rel_file_path}{extra}\r", end="")
+        len_last_file = len(rel_file_path)
 
         argv = argv_from_compdb(v.directory, v.arguments)
 
@@ -222,12 +222,12 @@ def main():
                 options=parse_options,
             )
         except TranslationUnitLoadError:
-            print("error parsing translation unit")
+            print("\nerror parsing translation unit")
             sys.exit(1)
 
         should_exit = False
         for diag in tu.diagnostics:
-            print(diag)
+            print(f"\n{diag}")
             if diag.severity == Diagnostic.Fatal or diag.severity == Diagnostic.Error:
                 should_exit = True
         if should_exit:
@@ -273,6 +273,8 @@ def main():
             _ = dup
 
             # print(fn.file, fn.line, dup, fn.name)
+
+    print("")
 
     with open(args.output_file, "w") as f:
         for fn in funcs:
