@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 
-from clang.cindex import (
-    Index,
-    CursorKind,
-    CompilationDatabase,
-    CompilationDatabaseError,
-    TranslationUnit,
-    TranslationUnitLoadError,
-    Diagnostic,
-)
-
 import argparse
 import os
-import sys
 import subprocess
+import sys
+
+from clang.cindex import (
+    CompilationDatabase,
+    CompilationDatabaseError,
+    CursorKind,
+    Diagnostic,
+    Index,
+    TranslationUnit,
+    TranslationUnitLoadError,
+)
 
 
 def get_fn_name(cursor) -> str:
@@ -208,7 +208,7 @@ def main():
         extra = ""
         if len(rel_file_path) < len_last_file:
             extra = " " * (len_last_file - len(rel_file_path))
-        print(f"[{i+1}/{len(compile_commands)}] {rel_file_path}{extra}\r", end="")
+        print(f"[{i + 1}/{len(compile_commands)}] {rel_file_path}{extra}\r", end="")
         len_last_file = len(rel_file_path)
 
         argv = argv_from_compdb(v.directory, v.arguments)
@@ -264,13 +264,9 @@ def main():
                 line=int(c.location.line),
             )
 
-            dup = False
-            if fn in funcs:
-                dup = True
-            else:
+            dup = fn in funcs
+            if not dup:
                 funcs.append(fn)
-
-            _ = dup
 
             # print(fn.file, fn.line, dup, fn.name)
 

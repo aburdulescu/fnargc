@@ -8,7 +8,7 @@ setup(
     description="Count C/C++ functions and their args.",
     packages=["fnargc"],
     install_requires=[
-        "libclang==16.0.0",
+        "libclang==18.1.1",
     ],
     entry_points={
         "console_scripts": [
